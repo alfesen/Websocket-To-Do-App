@@ -44,6 +44,18 @@ class App extends React.Component {
   }
 
   render() {
+
+    const renderTodos = this.state.tasks.map(({ id, name }) => (
+      <li key={id} className='task'>
+        {name}
+        <button
+          onClick={() => this.removeTask(id, true)}
+          className='btn btn--red'>
+          Remove
+        </button>
+      </li>
+    ))
+
     return (
       <div className='App'>
         <header>
@@ -51,16 +63,7 @@ class App extends React.Component {
         </header>
         <section className='tasks-section' id='tasks-section'>
           <ul className='tasks-section__list' id='tasks-list'>
-            {this.state.tasks.map(({ id, name }) => (
-              <li key={id} className='task'>
-                {name}
-                <button
-                  onClick={() => this.removeTask(id, true)}
-                  className='btn btn--red'>
-                  Remove
-                </button>
-              </li>
-            ))}
+            {renderTodos}
           </ul>
 
           <form id='add-task-form' onSubmit={event => this.submitForm(event)}>
